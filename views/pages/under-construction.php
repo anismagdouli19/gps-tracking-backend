@@ -1,0 +1,1 @@
+<img width="1000" alt="" src="<?php echo $this->config->item('assets_url').DS.'images/Website Under Construction template.jpg'?>">
