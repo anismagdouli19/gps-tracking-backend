@@ -39,7 +39,11 @@ $user = $this->backend->getSystemInfo();
 				<?php echo anchor('vehicle/motor','Thiết Bị GPS');?>
 				<ul style="visibility: hidden; display: block;">
 					<li><?php echo anchor('vehicle/motor',lang('Motor Management') );?></li>
-					<li><?php echo anchor('vehicle/car',lang('Car Management') );?></li>
+					<?php
+					/*
+					 * <li><?php echo anchor('vehicle/car',lang('Car Management') );?></li>
+					 */
+					?>
 					<li><?php echo anchor('user/manager',lang('User Management') );?></li>
 					<li><?php echo anchor('vehicle/fuel',lang('Fuel Price') );?></li>
 				</ul>

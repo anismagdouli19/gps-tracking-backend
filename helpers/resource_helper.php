@@ -169,3 +169,30 @@ function showFileContent($fileOnDisk,$newwidth=0,$maxheight=0){
 	print_r(imagedestroy($stamp_using));
 
 }
+
+function return_last_uri($numUri=2){
+
+    $CI =& get_instance();
+    $uriString = $CI->uri->uri_string();
+    if($numUri==0){
+        return $uriString;
+    }
+    $numUri--;
+    $uri = explode('/',$uriString);
+    $retunUri = $uri[0];
+    for($i=1;$i <=$numUri; $i++){
+        $retunUri .='/'.$uri[$i];
+    }
+
+    $retunUri = site_url($retunUri);
+
+    $addGet='';
+    if(isset($_GET) && count($_GET)>0){
+        foreach($_GET AS $key=>$val)
+            $addGet .= "&$key=$val";
+    }
+    if ($addGet!=''){
+        $retunUri .= "?".substr($addGet, 1);
+    }
+    return $retunUri;
+}
