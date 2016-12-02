@@ -9,7 +9,7 @@ $config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ?
 $config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
 
 $config['assets_url']	= array(
-    '//ci.quannh.dev/themes/terminator/',
+    '//as-ggzmmocqnwiionnoz2b1s7hrwavy.giaiphapict.com/terminator/',
 //     '//ci.quannh.dev/assets/',
 );
 // $config['resource_url']	= array(
