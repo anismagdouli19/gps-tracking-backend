@@ -1,7 +1,8 @@
 <?php
-class ordering extends form {
+class ordering {
 	function __construct(){
 		$this->CI =& get_instance();
+		$this->form = get_instance()->form;
 	}
 	public function input($fieldKey,$fieldData){
 		$model = (isset($fieldData->model) && $fieldData->model)?$fieldData->model:'Category_Model';
@@ -14,9 +15,9 @@ class ordering extends form {
 				$fieldData->options[$i]="-$i-";
 			}
 		}
-		
-		
-		return parent::input('inputSelect',$fieldKey,$fieldData);
+
+
+		return $this->form->input('inputSelect',$fieldKey,$fieldData);
 	}
-	
+
 }
