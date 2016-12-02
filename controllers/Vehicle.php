@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class vehicle extends CI_Controller {
-	function vehicle(){
+class Vehicle extends CI_Controller {
+	function Vehicle(){
 		parent::__construct();
 		$this->backend->checkLogin();
 		$this->load->model('Motor_Model');

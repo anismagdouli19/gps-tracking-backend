@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class product extends CI_Controller {
-	function product(){
+class Product extends CI_Controller {
+	function Product(){
 		parent::__construct();
 		$this->backend->checkLogin();
 // 		$this->load->model('User_Model');

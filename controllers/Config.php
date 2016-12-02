@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class config extends CI_Controller {
-	function config(){
+class Config extends CI_Controller {
+	function Config(){
 		parent::__construct();
 		$this->backend->checkLogin();
 		$this->load->model('System_Model');
