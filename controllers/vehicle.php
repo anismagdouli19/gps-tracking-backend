@@ -11,7 +11,7 @@ class vehicle extends CI_Controller {
 	function index(){
 		redirect('vehicle/motor','refresh');
 	}
-	
+
 	public function motor(){
 		$this->page_title[] = lang('Motor Manager');
 		$action = $this->uri->segment(3);
@@ -49,7 +49,7 @@ class vehicle extends CI_Controller {
 					}
 					$this->backend->form($opt);
 				}
-				
+
 			} else if ( ($action=='publish' || $action=='remove') && $this->input->post() ){
 				if($userData) { // remove tracking relation
 // 					exit('call me');
@@ -58,12 +58,12 @@ class vehicle extends CI_Controller {
 					$updateData = array( 'id'=>$this->input->post('id'), 'status'=>$this->input->post('publish'));
 					jsonData(array('action'=>( ($this->Motor_Model->updateMotorData($updateData) )?true:false )));
 				}
-				
+
 			} else if ($action =='report'){
 				self::motorReport( $this->input->get('v') );
 			}
 		} else if( $this->input->get('user') ){
-			
+
 			if($userData){
 				if ($this->input->get('format') =='json'){
 					if($this->input->get('publish') !=1){
@@ -80,7 +80,7 @@ class vehicle extends CI_Controller {
 			}
 		} else {
 			listDvice:
-			
+
 			if ($this->input->get('format') =='json'){
 				if($this->input->get('publish') !=1){
 					$sWhere = null;
@@ -106,8 +106,8 @@ class vehicle extends CI_Controller {
 		}
 		$this->template->render();
 	}
-	
-	
+
+
 	protected function motorFields(){
 		$fields = array(
 			'id'=>array('type'=>'text','value'=>0),
@@ -124,7 +124,7 @@ class vehicle extends CI_Controller {
 		);
 		return (object)$this->form->bindFields($fields);
 	}
-	
+
 	public function car(){
 		$this->page_title[] = lang('Car Manager');
 		$action = $this->uri->segment(3);
@@ -152,7 +152,7 @@ class vehicle extends CI_Controller {
 			} else if( $action=='add-tracking') {
 				$this->backend->formField = self::motorTracking();
 				if($this->input->post() ){
-					$this->Motor_Model->updateTracking(array( 
+					$this->Motor_Model->updateTracking(array(
 							'taget'=>intval($this->input->post('id')) + 30000,
 							'owner'=>$this->input->get('user'),'type'=>'track')
 					);
@@ -168,8 +168,8 @@ class vehicle extends CI_Controller {
 					$updateData = array( 'id'=>$this->input->post('id'), 'status'=>$this->input->post('publish'));
 					jsonData(array('action'=>( ($this->Motor_Model->updateMotorData($updateData) )?true:false )));
 			}
-			
-			
+
+
 		} else {
 			if ($this->input->get('format') =='json'){
 				if($this->input->get('publish') !=1){
@@ -196,7 +196,7 @@ class vehicle extends CI_Controller {
 		}
 		$this->template->render();
 	}
-	
+
 	protected function carFields(){
 		$fields = array(
 				'id'=>array('type'=>'text','value'=>0),
@@ -217,7 +217,7 @@ class vehicle extends CI_Controller {
 		);
 		return (object)$this->form->bindFields($fields);
 	}
-	
+
 	public function user(){
 		$uid = $this->uri->segment(3);
 		$userData = $this->User_Model->getUser( $uid );
@@ -237,7 +237,7 @@ class vehicle extends CI_Controller {
 			show_404();
 		}
 	}
-	
+
 	protected function motorTracking(){
 		$fields = array(
 			'id'=>array('type'=>'text','value'=>0),
@@ -245,7 +245,7 @@ class vehicle extends CI_Controller {
 		);
 		return (object)$this->form->bindFields($fields);
 	}
-	
+
 	protected function motorReport($id=1){
 		$data['fields'] = $this->Motor_Model->getReport($id);
 		$motor = $this->Motor_Model->getMotor($id);
@@ -299,9 +299,9 @@ class vehicle extends CI_Controller {
 		);
 		$this->template->write_view('content','pages/user_view',$data);
 		$this->template->write('title', $this->backend->pageTitle() );
-		
+
 	}
-	
+
 	public function fuel(){
 		$this->page_title[] = lang('Fuel Price Manager');
 		$action = $this->uri->segment(3);
@@ -346,23 +346,23 @@ class vehicle extends CI_Controller {
 		}
 		$this->template->render();
 	}
-	
+
 	protected function fuelFields(){
-		
+
 		$fields = array(
 			'id'=>array('type'=>'hidden'),
 			'time'=>array('type'=>'time'),
 		);
 		if( !class_exists('fuel_type') ){
-			include BASEPATH.DS.'libraries/form-field/fuel_type.php';
+			include APPPATH.DS.'libraries/form-field/fuel_type.php';
 		}
 		foreach( fuel_type::$value AS $val=>$title){
 			$fields[$val] = array('title'=>$title,'type'=>'inputUnit','unit'=>'number','lable'=>'VND');
 		}
-		
+
 		$fields['source'] = array('type'=>'url','value'=>'http://www.petrolimex.com.vn/');
 		return (object)$this->form->bindFields($fields);
 	}
-	
+
 
 }

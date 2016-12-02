@@ -15,7 +15,7 @@ class System_Model extends CI_Model {
 		}
 		return (object) $return;
 	}
-	
+
 	public function updateConfig($data=''){
 		if(!$data) return false;
 		foreach ($data AS $k => $v){
@@ -23,24 +23,24 @@ class System_Model extends CI_Model {
 		}
 		return true;
 	}
-	
+
 	public function updateItem($data=''){
-		
+
 		if( isset($data['alias']) && self::getItem($data['alias']) ){
 			$data['modified']=date("Y-m-d H:i:s");
 			$data['modified_by']=$this->session->userdata('uid');
 			$this->sys->where('alias', $data['alias']);
 			$this->sys->update('config', $data);
-			
+
 		} else {
 			$data['created']=date("Y-m-d H:i:s");
  			$data['created_by']=$this->session->userdata('uid');
 			$this->sys->insert('config', $data);
-			
+
 		}
 		return true;
 	}
-	
+
 	public function getItem($alias=''){
 		if(!$alias){
 			 return null;
@@ -49,7 +49,7 @@ class System_Model extends CI_Model {
 			return $this->sys->get()->row();
 		}
 	}
-	
+
 	public function getFuel($time=0){
 		if(!$time){
 			return null;
@@ -66,14 +66,14 @@ class System_Model extends CI_Model {
 			return $data;
 		}
 	}
-	
+
 	public function updateFuel($data=null){
 		if( !isset($data['time']) ){
 			return false;
 		}
-		
+
 		if( !class_exists('fuel_type') ){
-			include BASEPATH.DS.'libraries/form-field/fuel_type.php';
+			include APPPATH.DS.'libraries/form-field/fuel_type.php';
 		}
 		$price = array();
 		foreach( fuel_type::$value AS $val=>$title){
@@ -82,14 +82,14 @@ class System_Model extends CI_Model {
 				unset($data[$val]);
 			}
 		}
-		
+
 		$data['price'] = json_encode($price);
-		
+
 		if(self::checkFuel($data['time'],$data['id']) ){
 			exit('exits time');
 			return false;
 		}
-		
+
 		if( $data['id'] ){
 			$data['modified']=date("Y-m-d H:i:s");
 			$data['modified_by']=$this->session->userdata('uid');
@@ -99,7 +99,7 @@ class System_Model extends CI_Model {
 			$update['created_by']=$this->session->userdata('uid');
 			$this->sys->insert('fuel', $data);
 		}
-			
+
 		return true;
 	}
 	public function changeStatus($id=null,$status=1){
@@ -107,7 +107,7 @@ class System_Model extends CI_Model {
 		$this->sys->update('fuel', array('status'=>$status));
 		return true;
 	}
-	
+
 	public function checkFuel($time='',$id=0){
 		if(!$time){
 			return null;
@@ -119,10 +119,10 @@ class System_Model extends CI_Model {
 			$this->sys->where('YEAR(time)',date("Y", $timestamp));
 			$this->sys->where('id !=',$id);
 			return $this->sys->get()->row();
-			
+
 		}
 	}
-	
+
 	public function fuel_ajax($limitF=0,$limitTo=5,$sorder='',$where='',$editURI = '',$search=''){
 		$dataReturn=array();
 		$select = '*';
@@ -134,7 +134,7 @@ class System_Model extends CI_Model {
 			foreach($where AS $key=>$item)
 				$where[$key]= $item;
 		}
-	
+
 		if(is_array($sorder) && $sorder ){
 			foreach($sorder AS $field =>$soft){
 				$order .= "$field  $soft ";
@@ -143,15 +143,15 @@ class System_Model extends CI_Model {
 			$order.="time DESC";
 		}
 		$this->sys->group_by("time");
-	
+
 		$data = $this->sys->select($select)->from($from)->where($where)->or_where($orWhere)->order_by($order)->limit($limitTo,$limitF)->get()->result();
 		$dataReturn['totalRecords']=$this->sys->select($select)->from($from)->where($where)->or_where($orWhere)->count_all_results();
 		$dataReturn['data']=array();
-	
+
 		if( !class_exists('fuel_type') ){
-			include BASEPATH.DS.'libraries/form-field/fuel_type.php';
+			include APPPATH.DS.'libraries/form-field/fuel_type.php';
 		}
-		
+
 		foreach($data AS $key=>$v){
 			switch ($v->status){
 				case -1: $status = 'removed'; break;
@@ -161,14 +161,14 @@ class System_Model extends CI_Model {
 			$price = json_decode($v->price,TRUE);
 			//$random_key = array_rand($price, 1);
 			$random_key = 'ron-92';
-			
+
 			$dataReturn['data'][] = array(
 					$v->id,
 					date("d/m/Y H:i", strtotime($v->time) ) ,
 					fuel_type::$value[$random_key].': <strong>'.number_format($price[$random_key],0,null,".").'</strong> <span class="vndtext">'.VndText($price[$random_key]).'</span>',
 					$this->backend->tableButtonAction($status),
 					0,null);
-	
+
 		}
 		return $dataReturn;
 	}

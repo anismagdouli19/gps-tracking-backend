@@ -1,21 +1,22 @@
 <?php
-class tags extends form {
+class tags {
 	function __construct(){
 		$this->CI =& get_instance();
+		$this->form = get_instance()->form;
 	}
 	public function input($fieldKey,$fieldData){
 		$lable = preg_replace("/<.*?>/", "", $fieldData->lable);
 		$attribute = '';
 		$fieldData->category = ( isset($fieldData->category) )?$fieldData->category:'adv';
 		$fieldData->table = ( isset($fieldData->table) )?$fieldData->table:'advertising';
-		
+
 		$scriptHead = ''
 					.'var tag = {'
 						.'item:function(id,title,type,hide){'
 							.'$hide = (hide==true)?\' style="display: none;" \': " ";'
 							.'var out = \'<span tag_id="\'+id+\'" \'+$hide+\'><a class="ntdelbutton" ></a>\'+title; '
 							.'if(type=="using")'
-								.'out+=\'<input type="hidden" name="'.self::protection($fieldKey.'[]').'" value="\'+id+\'" />\';'
+								.'out+=\'<input type="hidden" name="'.$this->form->protection($fieldKey.'[]').'" value="\'+id+\'" />\';'
 							.'out+=\'</span>\';'
 							.' return out;'
 						.'},'
@@ -39,8 +40,8 @@ class tags extends form {
 							.'$.ajax({ type : "POST", dataType : "json", url : "'.site_url('tag/ajax').'?type=post", '
 	         						.'data : { "'.$this->CI->config->item('csrf_token_name').'":$("input[name='.$this->CI->config->item('csrf_token_name').']").val(),'
 	         								.' "'.$this->CI->form->protection('tag').'":newTag,';
-			if(isset($fieldData->category)) 
-				$scriptHead.=				' "'.$this->CI->form->protection('category').'": "'.$fieldData->category.'",';         								 
+			if(isset($fieldData->category))
+				$scriptHead.=				' "'.$this->CI->form->protection('category').'": "'.$fieldData->category.'",';
 			$scriptHead.= '},'
 	         						.'success: function(response) {'
 	         							.' if(response.action == true) {'
@@ -80,19 +81,19 @@ class tags extends form {
 						.'e.preventDefault();'
 					.'});'
 		;
-		
+
 		$this->CI->template->add_js_ready($scriptHead);
-		
+
 		$html = '';
 		if($this->CI->session->userdata('uid')==1){
 			$html.='<input type="text" value="" autocomplete="off" class="text" name="newtag" >'
 			.'<button class="red dark send_right img_icon has_text text_only" id="new_post_tag" ><span>Add</span></button> ';
 		}
-			
+
 		$html.='<div class="tags_item clearfix"></div>'
 			.'<fieldset class="tags_item_added clearfix"><legend>Tag Exist</legend></fieldset>'
 		;
 		return $html;
 	}
-	
+
 }

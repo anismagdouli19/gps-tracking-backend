@@ -7,7 +7,7 @@ $template['default']['regions'] = array(
 		//'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
 		'jquery-ui-1.9.2/js/jquery-1.8.3.js',
 		'backend.js',
-		'terminator/js/jquery.jcarousel.js',
+		'js/jquery.jcarousel.js',
 		'tinymce_3.5/tiny_mce.js',
 		// 	'jquery/tinymce_3.5/tiny_mce_src.js',
 		'tinymce_3.5/jquery.tinymce.src.js',
@@ -16,7 +16,7 @@ $template['default']['regions'] = array(
 		// 	'jquery/tinymce_3.5/jquery.tinymce.src.js',
 		'tinymce_3.5/plugins/ict/image_plugin.js',
 		'tinymce_3.5/plugins/ict/link_plugin.js',
-		'terminator/js/viettracker.js',
+		'js/viettracker.js',
 			'plugin/timepicker-addon/jquery-ui-timepicker-addon.js',
 	),
 	'_styles'=>array(

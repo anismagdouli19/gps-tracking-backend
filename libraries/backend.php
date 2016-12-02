@@ -14,7 +14,7 @@ class Backend extends form {
 			redirect('administrator-login','refresh');
 		}
 	}
-	
+
 	public function controllersActions($opt=null,$action=null){
 		switch($action){
 			case 'add-new':
@@ -30,7 +30,7 @@ class Backend extends form {
 				exit('unknow action'); break;
 		}
 	}
-	
+
 	public function getSystemInfo(){
 		$admin = $this->CI->Account_Model->userInfo($this->CI->session->userdata('uid'));
 		return $admin;
@@ -44,7 +44,7 @@ class Backend extends form {
 		}
 		return $title;
 	}
-	
+
 	public function notification($msg){
 		$html='';
 		if($msg && is_array($msg)){
@@ -56,13 +56,13 @@ class Backend extends form {
 					$html.='<p><strong>'.$this->CI->lang->line('Error').':</strong> '.$note['text'].'</p>';
 				else if($note['type']=='message')
 					$html.='<div class="ui-widget ui-msg"><div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;"><p><span class="ui-icon ui-icon-notice" style="float: left; margin-right: .3em;"></span><strong>'.$this->CI->lang->line('Message').':</strong> '.$note['text'].'</p></div></div>';
-				
+
 				$html.='</div>';
 			}
 		}
 		return $html;
 	}
-	
+
 	public function dataTableAjax($aColumns,$model,$getDataFunction,$sWhere=null,$editControl=''){
 		//$aColumns = array('id','a.image','a.company','a.create','a.click');
 		$sStart = $sLength =0;
@@ -87,7 +87,7 @@ class Backend extends form {
 		if( $this->CI->input->post('sSearch') ){
 			$sSearch = $this->CI->input->post('sSearch');
 		}
-	
+
 		$data = $this->CI->$model->$getDataFunction($sStart,$sLength,$sOrder,$sWhere,$editControl,$sSearch);
 		$dataReturn =  array(
 				"sEcho" => $this->CI->input->post('sEcho'),
@@ -95,10 +95,10 @@ class Backend extends form {
 				"iTotalDisplayRecords" => $data['totalRecords'],
 				"aaData" => $data['data']
 		);
-	
+
 		return jsonData($dataReturn);
 	}
-	
+
 	public function tableButtonAction($action){
 		switch ($action){
 			case 'publish':
@@ -117,7 +117,7 @@ class Backend extends form {
 		}
 		return '<button class="icon_only item-'.$action.'" title="'.$title.'" alt="'.$title.'" action="item-'.$action.'"  ></button>';;
 	}
-	
+
 	public function form($opt=array('item-name'=>'')){
 		if($this->CI->input->post())  {
 			self::formSubmit($opt);
@@ -129,13 +129,13 @@ class Backend extends form {
 				} else {
 					$item=$this->CI->$opt['model']->$opt['model-get']($opt['id']);
 				}
-	
-	
+
+
 				foreach($this->CI->backend->formField AS $key=>$val){
 					if(isset($item->$key)&& $item->$key)
 						$this->CI->backend->formField->$key->value = $item->$key;
 				}
-// 				
+//
 			} else {
 				$title=$opt['item-name'].' Add New '.$opt['item-name'];
 			}
@@ -154,7 +154,7 @@ class Backend extends form {
 			$this->CI->template->write('title',$title);
 		}
 	}
-	
+
 	public function formSubmit($opt=array() ){
 		foreach($this->CI->backend->formField AS $key=>$field){
 			if( isset($field->request) && $field->request && $this->CI->input->post($key)==''){
@@ -186,10 +186,10 @@ class Backend extends form {
 			} else {
 				redirect(return_last_uri($opt['uri-back']), 'refresh');
 			}
-			
+
 		}
 	}
-	
+
 	public function dataValue($data){
 		$dataReturn = array();
 		foreach($data AS $key=>$field){
@@ -198,7 +198,7 @@ class Backend extends form {
 		}
 		return $dataReturn;
 	}
-	
+
 	public function build($fields=null,$button=''){
 		$this->CI->form->inputClass = 'text fl-space2';
 		$html='<form action="" method="post" >';
@@ -213,7 +213,7 @@ class Backend extends form {
 			foreach($this->CI->form->fields AS $key=>$input){
 				if($input->type=='hidden')
 					$html .= self::inputHidden($key,$input->value);
-				else 
+				else
 					$html .= self::rowInput($key,$input);
 			}
 		}
@@ -222,7 +222,7 @@ class Backend extends form {
 			foreach($button AS $b){
 				$html .= self::button($b['title'],$b['type']);
 			}
-			
+
 			$html .='</div>';
 		} else {
 			$html .='<div class="rule2"></div><div class="form-field clear">'
@@ -239,9 +239,9 @@ class Backend extends form {
 		;
 		$this->CI->template->add_js_ready($script);
 		return $html;
-	
+
 	}
-	
+
 	public function showButtons($buttons){
 		$html = '';
 		if(is_array($buttons)){
@@ -249,12 +249,12 @@ class Backend extends form {
 				$keyButton = array_keys($buton);
 				if($keyButton && $keyButton[0] !=''){
 					$html .= self::button($buton[$keyButton[0]],'button',' action="'.$keyButton[0].'" class="button green  fl" ');
-				} 
+				}
 			}
 		}
 		return $html;
 	}
-	
+
 	public function button($name,$type="button",$attributes = ''){
 		if ($attributes != ''){
 			$attributes = _parse_attributes($attributes);
@@ -268,35 +268,35 @@ class Backend extends form {
 			default:
 				$html =	 '<button  '.$attributes.' >'.$this->CI->lang->line($name).'</button>';break;
 		}
-		
+
 		return $html;
 	}
-	
+
 	public function rowInput($key,$fieldData){
 		$styleRow='';
-		
+
 		$desc = '';
-		
+
 		$html = '<div class="form-field clear">'
 				.'<label class="form-label size-120 fl-space2" for="'.self::protection($key).'">'.$fieldData->title.'';
-		
+
 		if( isset($fieldData->request) && $fieldData->request ){
 			$html.='<span class="required">*</span>';
 		}
-		
+
 		$html .='</label>'
 				;
 		$method = ( strtolower($fieldData->type) );
 // 		echo FCPATH.'libraries'.DS.'form-field'.DS.$method.'.php' ;
 		if( $fieldData->type == 'password'){
 			$html .= parent::inputText($key,$fieldData);
-		} else if (file_exists( FCPATH.'libraries'.DS.'form-field'.DS.$method.'.php' )){
-			if (!class_exists($method)) {
-				include( FCPATH.'libraries'.DS.'form-field'.DS.$method.'.php' );
-			}
-			
-			$className = new $method;
-			$html .= $className->input($key,$fieldData);
+// 		} else if (file_exists( FCPATH.'libraries'.DS.'form-field'.DS.$method.'.php' )){
+// 			if (!class_exists($method)) {
+// 				include_once FCPATH.'libraries'.DS.'form-field'.DS.$method.'.php';
+// 			}
+
+// 			$className = new $method;
+// 			$html .= $className->input($key,$fieldData);
 		} else {
 			$html .= parent::input($method,$key,$fieldData);
 		}

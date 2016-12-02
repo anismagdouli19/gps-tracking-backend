@@ -5,7 +5,7 @@
 <div class="login-style">
 	<div class="login-header">
 		<div class="logo clear">
-			<img src="<?php echo subdomain('assets_url')?>/terminator/images/logo_earth_bw.png" alt="" class="picture" />
+			<img src="<?php echo subdomain('assets_url')?>/images/logo_earth_bw.png" alt="" class="picture" />
 
 			<span class="textlogo">
 				<span class="title">VietTracker Backend</span>

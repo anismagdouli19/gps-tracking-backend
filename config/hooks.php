@@ -10,12 +10,18 @@
 |
 */
 $hook['post_controller_constructor'] = array(
-		0 => array(
+	array(
 				'function' => 'setJSvalue',
 				'filename' => 'loaded.php',
 				'filepath' => 'hooks'
-		)
+		),
+     array(
+        'function' => 'load_backend',
+        'filename' => 'loaded.php',
+        'filepath' => 'hooks'
+    )
 );
+
 
 
 /* End of file hooks.php */

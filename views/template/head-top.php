@@ -10,9 +10,9 @@ $user = $this->backend->getSystemInfo();
 				<li><?php echo anchor('account/info',lang('Settings'))?></li>
 				<li><a class="red" href="<?php echo site_url('account/logout');?>">Logout</a></li>
 				</ul>
-				
+
 				<div class="user clear">
-					<img alt="" class="avatar" src="<?php echo subdomain('assets_url')?>/terminator/images/avatar.jpg">
+					<img alt="" class="avatar" src="<?php echo subdomain('assets_url')?>/images/avatar.jpg">
 					<span class="user-detail">
 						<span class="name"><?php echo anchor('account/info',$user->fullname)?></span>
 						<span class="text">Logged as admin</span>
@@ -20,10 +20,10 @@ $user = $this->backend->getSystemInfo();
 					</span>
 				</div>
 			</div>
-			
+
 			<div class="logo clear">
 			<a title="View dashboard" href="index.html">
-				<img class="picture" alt="" src="<?php echo subdomain('assets_url')?>/terminator/images/logo_earth.png">
+				<img class="picture" alt="" src="<?php echo subdomain('assets_url')?>/images/logo_earth.png">
 				<span class="textlogo">
 					<span class="title"><?php echo $this->config->item('site-name');?></span>
 					<span class="text"><?php echo $this->config->item('version');?></span>
@@ -31,7 +31,7 @@ $user = $this->backend->getSystemInfo();
 			</a>
 			</div>
 		</div>
-		
+
 		<div class="menu">
 			<ul class="clear">
 			<li><?php echo anchor('',$this->lang->line('Home') );?></li>
@@ -42,7 +42,7 @@ $user = $this->backend->getSystemInfo();
 					<li><?php echo anchor('vehicle/car',lang('Car Management') );?></li>
 					<li><?php echo anchor('user/manager',lang('User Management') );?></li>
 					<li><?php echo anchor('vehicle/fuel',lang('Fuel Price') );?></li>
-				</ul>	
+				</ul>
 			</li>
 			<li><?php echo anchor('article/manager','Quản Lý Bài Viết' );?>
 				<ul style="visibility: hidden; display: block;">
@@ -71,8 +71,8 @@ $user = $this->backend->getSystemInfo();
 							<li><a href="columns2.html">Columns in Boxes</a></li>
 						</ul>
 					</li>
-					
-				</ul>				
+
+				</ul>
 			</li>
 			<li><?php echo anchor('config/system',$this->lang->line('Config') );?></li>
 			</ul>
@@ -88,8 +88,8 @@ $user = $this->backend->getSystemInfo();
 		 	echo '<li class="first">'.$this->page_title[0].'</li>';
 		 	for($i=1;$i < count($this->page_title);$i++){
 		 		echo '<li >'.$this->page_title[$i].'</li>';
-		 	} 
-		 } 
+		 	}
+		 }
 		?>
 		</ul>
 	</div>

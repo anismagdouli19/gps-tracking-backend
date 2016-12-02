@@ -17,16 +17,16 @@ class Account extends CI_Controller {
 		if($this->session->userdata('uid')){
 			redirect('user/manager');
 		}
-// 		echo base64_encode('mapgps');exit;
+
 		if($this->input->post()) {
 			return self::checkLogin();
 		}
-		
-		
+
+
 		$form['fields'] = array( 'email'=>array('type'=>'email'),'password'=>array('type'=>'password') );
 		$this->template->write_view('content', 'account/login-form',$form);
 		$script = ''
-			."$('body').css({'padding-top':50,'background': ' url(".subdomain('assets_url')."/terminator/images/header.png) top left repeat-x'});"
+			."$('body').css({'padding-top':50,'background': ' url(".subdomain('assets_url')."/images/header.png) top left repeat-x'});"
 			."$('.header').css('background','none');"
 		;
 		$this->template->add_js_ready($script);
@@ -39,11 +39,11 @@ class Account extends CI_Controller {
 	protected function checkLogin(){
 		$user['email'] = $this->input->post('email');
 		$user['password'] = $this->input->post('password');
-		
+
 		$userData = $this->Account_Model->getUser($user);
-		
+
 		if(isset($userData) && $userData){
-// 			bug($userData);
+
 			$this->userSession =  array(
 					'fullname'  => $userData->fullname,
 					'uid'=> $userData->uid,
@@ -56,7 +56,7 @@ class Account extends CI_Controller {
 				} else {
 					redirect($continue);
 				}
-	
+
 
 		} else {
 			unset($_POST);
@@ -66,11 +66,11 @@ class Account extends CI_Controller {
 			} else {
 				return self::login();
 			}
-				
+
 		}
-	
+
 	}
-	
+
 	private function userFields(){
 		$fields = array(
 			'id'=>array('type'=>'hidden','value'=>$this->session->userdata('uid')),
@@ -82,7 +82,7 @@ class Account extends CI_Controller {
 			'lastvisit_date'=>array('disabled'=>true),
 			'password'=>array('type'=>'password'),
 			'repassword'=>array('type'=>'password','title'=>lang('Retype Password')),
-					
+
 		);
 		return (object)$this->form->bindFields($fields);
 	}
@@ -97,7 +97,7 @@ class Account extends CI_Controller {
 			'uri-back'=>1,
 			'id'=>$this->session->userdata('uid'),
 		);
-		
+
 		$this->page_title[] = lang('Update User Info');
 		$this->backend->form($opt);
 		$this->template->render();

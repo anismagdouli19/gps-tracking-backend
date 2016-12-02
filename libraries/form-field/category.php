@@ -1,7 +1,8 @@
 <?php
-class category extends form {
+class category {
 	function __construct(){
 		$this->CI =& get_instance();
+		$this->form = get_instance()->form;
 	}
 	public function input($fieldKey,$fieldData){
 		if( !method_exists($this->CI, 'Category_Model') ){
@@ -16,8 +17,8 @@ class category extends form {
 		foreach($items AS $cate){
 			$fieldData->options[$cate[0]]=$cate[1];
 		}
-		
-		return parent::input('inputSelect',$fieldKey,$fieldData);
+
+		return $this->form->input('inputSelect',$fieldKey,$fieldData);
 	}
-	
+
 }

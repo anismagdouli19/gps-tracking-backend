@@ -5,14 +5,14 @@ class Account_Model extends CI_Model {
 		parent::__construct();
 		$this->account = $this->load->database('account',true);
 	}
-	
+
 	public function getUser($user){
 		$this->account->select("u.password, u.username, u.fullname, u.id AS uid")->from('system AS u')->where(array('u.status' => 1));
 		$this->account->where('u.email', ($user['email']));
 		$query = $this->account->get();
 		$data = $query->row();
-// 		bug($this->account->last_query());exit;
-// 		bug($data);exit;
+// 		bug($this->account);
+// bug($data);die;
 		if($data){
 			$salt = explode(':',$data->password);
 			if($data->password == (md5($user['password'].':'.$salt[1]).':'.$salt[1]) ){
@@ -26,14 +26,14 @@ class Account_Model extends CI_Model {
 	public function userInfo($id){
 		$this->account->select("u.password, u.username, u.fullname, u.id AS uid")->from('system AS u')->where(array('u.status' => 1,'u.id'=>$id));
 		return $this->account->get()->row();
-		
+
 	}
-	
+
 	public function getinfo($id=0){
 		if( !$id) return false;
 			$this->account->select('u.*')->from('system AS u')->where(array('u.id'=>$id));
 		return $this->account->get()->row();
-		
+
 	}
 	public function updateinfo($data){
 		if($data){

@@ -1,12 +1,21 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-if($_SERVER['HTTP_HOST'] == 'gpsb.viettracker.vn')
-	$config['base_url']	= 'http://gpsb.viettracker.vn';
-else 
-	$config['base_url']	= 'http://localhost:88';
+// if($_SERVER['HTTP_HOST'] == 'gpsb.viettracker.vn')
+// 	$config['base_url']	= 'http://gpsb.viettracker.vn';
+// else
+// 	$config['base_url']	= 'http://localhost:88';
 
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
 
-
+$config['assets_url']	= array(
+    '//ci.quannh.dev/themes/terminator/',
+//     '//ci.quannh.dev/assets/',
+);
+// $config['resource_url']	= array(
+//     'http://rs1.viettracker.vn',
+//     'http://rs2.viettracker.vn'
+// );
 
 
 
@@ -63,7 +72,7 @@ $config['url_suffix'] = '.html';
 | than english.
 |
 */
-$config['language']	= 'vietnamese';
+$config['language']	= 'vi';
 
 /*
  |--------------------------------------------------------------------------
