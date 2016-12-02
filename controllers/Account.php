@@ -33,8 +33,11 @@ class Account extends CI_Controller {
 		$this->template->render();
 	}
 	public function logout(){
-		$this->session->unset_userdata($this->userSession);
-		redirect('', 'refresh');
+
+		$this->session->unset_userdata(array_keys($this->userSession));
+// bug($this->userSession);die;
+		redirect(base_url(), 'refresh');
+
 	}
 	protected function checkLogin(){
 		$user['email'] = $this->input->post('email');
@@ -51,6 +54,9 @@ class Account extends CI_Controller {
 			);
 				$this->session->set_userdata($this->userSession);
 				$continue = ($this->input->get('r'))?$this->input->get('r'):'';
+				if( strlen($continue) < 4 ){
+				    $continue = "user/manager";
+				}
 				if($this->input->get('format')=='json'){
 					return returnJson(true);
 				} else {
