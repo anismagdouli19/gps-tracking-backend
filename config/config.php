@@ -298,7 +298,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = TRUe;
+$config['csrf_protection'] = FALSE;
 $config['csrf_token_name'] = '616493c4bf1ea9348e6cdded4e88549a'; //mapgps-token
 $config['csrf_cookie_name'] = 'c2c42055e931f811bdd794f5bf5542a5'; //mapgps-cookie
 $config['csrf_expire'] = 7200;
