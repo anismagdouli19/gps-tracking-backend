@@ -49,8 +49,9 @@ $lang +=array(
 	'Time Begin'=>'Từ',
 	'Time End'=>'Đến',
 		'Enabled'=>'Sử Dụng',
-		'Disabled'=>'Không Dùng'
-		
+		'Disabled'=>'Không Dùng',
+    'Add New Price'=>'Thêm Mới Giá'
+
 );
 
 $lang +=array(
@@ -97,7 +98,7 @@ $lang +=array(
 	'Your Email'=>'Email người Gửi',
 	'Your Mobile'=>'Điện thoại người Gửi',
 	'Write Your Message'=>'Nội dung Gửi',
-		
+
 	'Customer Name'=>'Họ và Tên người đặt hàng',
 	'Customer Address'=>'Địa chỉ nhận hàng',
 	'Customer Email'=>'Email người nhận',
@@ -106,7 +107,7 @@ $lang +=array(
 	'Mumber of Products'=>'Số Lượng Sản Phẩm',
 	'username lable'=>'Tên đăng nhập',
 	'password lable'=>'Mật khẩu',
-	
+
 );
 
 $lang +=array(
@@ -154,7 +155,7 @@ $lang +=array(
 	'Product Management'=>'Quản Lý Sản Phẩm',
 	'GPS for Motor'=>'Hệ Thống Định Vị Xe Máy',
 	'Powers'=>'Quyền Hạn',
-		
+
 		'Owner'=>'Chủ Phương Tiện',
 		'Vehicle Name'=>'Tên Phương Tiên',
 		'The Conditioner'=>'Điều Hòa',

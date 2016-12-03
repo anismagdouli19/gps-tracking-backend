@@ -60,7 +60,10 @@ class System_Model extends CI_Model {
 				$price = json_decode($data->price,TRUE);
 				unset($data->price);
 				foreach($price AS $key=>$val){
-					$data->$key = number_format($val,0,null," ");
+				    if( strlen($val) > 0 ){
+				        $data->$key = number_format(floatval($val),0,null," ");
+				    }
+
 				}
 			}
 			return $data;

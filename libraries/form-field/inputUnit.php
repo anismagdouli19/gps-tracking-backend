@@ -1,7 +1,8 @@
 <?php
-class inputUnit extends form {
+class inputUnit {
 	function __construct(){
 		$this->CI =& get_instance();
+		$this->form = get_instance()->form;
 	}
 	public function input($fieldKey,$fieldData){
 		$readonly = (isset($fieldData->disabled))?$fieldData->disabled:false;
@@ -11,8 +12,8 @@ class inputUnit extends form {
 		$number = (isset($fieldData->unit) && $fieldData->unit =='number' )?'number':'';
 		if($readonly)
 			return '<span>'.$fieldData->value.'</span>';
-		else 
-			return "<input type=\"text\" name=\"".self::protection($fieldKey)."\" aria-label=\"".$lable."\"  placeholder=\"".$lable."\" value=\"$fieldData->value\" class=\"".$this->CI->form->inputClass." unit $number\" $attribute id=\"".self::protection($fieldKey)."\" />".$lableUnit;
+		else
+			return "<input type=\"text\" name=\"".$this->form->protection($fieldKey)."\" aria-label=\"".$lable."\"  placeholder=\"".$lable."\" value=\"$fieldData->value\" class=\"".$this->CI->form->inputClass." unit $number\" $attribute id=\"".$this->form->protection($fieldKey)."\" />".$lableUnit;
 	}
-	
+
 }

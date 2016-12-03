@@ -5,7 +5,9 @@ function setJSvalue(){
 			."protect : '".$CI->security->get_csrf_token_name()."',"
 			."site:'".config_item('base_url')."/',"
 			.'};'
+
 	;
+	$script.= "site_url = '".base_url()."';";
 	if( config_item('assets_url') ){
 		$assets = config_item('assets_url');
 		$script .="vt.assets = '".$assets[0]."';";
