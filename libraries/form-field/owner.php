@@ -1,7 +1,8 @@
 <?php
-class owner extends form {
+class owner {
 	function __construct(){
 		$this->CI =& get_instance();
+		$this->form = get_instance()->form;
 	}
 	public function input($fieldKey,$fieldData){
 		$lable = preg_replace("/<.*?>/", "", $fieldData->lable);
@@ -14,8 +15,8 @@ class owner extends form {
 			}
 		}
 		$html = "<input type=\"text\" value=\"$fullname\" class=\"".$this->CI->form->inputClass."\" $attribute disabled />";
-		$html.=parent::inputHidden($fieldKey,$fieldData->value);
+		$html.=$this->form->inputHidden($fieldKey,$fieldData->value);
 		return $html;
 	}
-	
+
 }
