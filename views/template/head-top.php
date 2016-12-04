@@ -6,7 +6,7 @@ $user = $this->backend->getSystemInfo();
 		<div class="head_top">
 			<div class="topbuts">
 				<ul class="clear">
-				<li><a href="//viettracker.vn">View Site</a></li>
+				<li><a href="//gpstracking.demoweb.biz">View Site</a></li>
 				<li><?php echo anchor('account/info',lang('Settings'))?></li>
 				<li><a class="red" href="<?php echo site_url('account/logout');?>">Logout</a></li>
 				</ul>
