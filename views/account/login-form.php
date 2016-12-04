@@ -8,8 +8,8 @@
 			<img src="<?php echo subdomain('assets_url')?>/images/logo_earth_bw.png" alt="" class="picture" />
 
 			<span class="textlogo">
-				<span class="title">VietTracker Backend</span>
-				<span class="text">Version 1.0</span>
+				<span class="title">GSP Tracking Backend</span>
+				<span class="text">demo version</span>
 			</span>
 		</div>
 	</div>
