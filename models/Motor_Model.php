@@ -69,7 +69,6 @@ class Motor_Model extends CI_Model {
 		$this->motor->select('m.*')->from('motor AS m')->where(array('m.id'=>$id));
 		$data =  $this->motor->get()->row();
 		return $data;
-// 		bug($data); exit;
 	}
 
 	public function updateMotor($data){

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $uri = uri_string();
 $query='';
 if($this->input->get()){
@@ -18,17 +18,17 @@ if(isset($controller)){
 			$addGet .= "&$key=$val";
 	}
 	//$url = ($addGet!='')?'?'.substr($addGet,1):'';
-	
+
 	echo UI::button($this->lang->line("$controller add new"),array('id'=>"item-add", 'href'=>$newItem));
 	if(isset($otherButton)) echo $otherButton;
 }
-	
+
 $column=$aoColumns=$aoColumnDefs='';
 
 if($table){
 	$i=0;
 	foreach($table AS $key=>$info){
-		$column.='<th></th>'; 
+		$column.='<th></th>';
 		$softTable = ($info[1]==TRUE)?",'bSortable': true":",'bSortable': false";
 		$sClass = (isset($info[3])&& $info[3]!='')?",'sClass': '$info[3]' ":'';
 		$aoColumns .="{'sTitle': '$info[0]' $softTable , 'sWidth': '$info[2]px' $sClass},";
@@ -56,13 +56,13 @@ if($table){
 	</div>
 </div>
 
-		
-		
+
+
 <script type="text/javascript" charset="utf-8">
 var tableconfig = {
-        "bProcessing": true,"bServerSide": true, "sPaginationType": "full_numbers", 
+        "bProcessing": true,"bServerSide": true, "sPaginationType": "full_numbers",
 		<?php if( isset($DisplayLength) && $DisplayLength) echo '"iDisplayLength": '.$DisplayLength.','; ?>
-        
+
         "aoColumns": [<?php echo $aoColumns;?>], "aoColumnDefs":	[<?php echo $aoColumnDefs;?>], "fnServerData": function ( sSource, aoData, fnCallback ) {
         	jQuery.each(aoData, function(i, item) {
         	    $.each(item, function(ii, itemSub) {
@@ -70,11 +70,11 @@ var tableconfig = {
                 	    if(itemSub!='<?php echo $this->security->get_csrf_token_name()?>')
             	    	aoData[i][ii] = '<?php echo $this->form->protection()?>'+itemSub;
                 	}
-            	    
+
             	});
         	});
 			jQuery.ajax( {"dataType": 'json',"type": "POST","url": "<?php echo $getURL;?>","data": aoData,
-	            success: function(data) { fnCallback(data); tableView.actionEvents(); } 
+	            success: function(data) { fnCallback(data); tableView.actionEvents(); }
             });
     	}
  };
@@ -86,18 +86,24 @@ $(document).ready(function() {
 var tableView = {
 		urlAction:function(action,id){
 			var uri="<?php echo $uri;?>";
-			if(id) 
+			if(id)
 				url = vt.site+ uri + ((action)?"/"+action+"/"+id:'') + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
-			else 
+			else
 				url = vt.site+ uri + ((action)?"/"+action+"/":'') + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
 			return url;
 		},
+		urlActionMotorUpdate: function(action,id){
+			var uri = 'vehicle/motor/update/';
+		    url = vt.site+ uri + "/"+id + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
+		    return url;
+		},
+
 		tableActions:function(id){
 			view = '<?php echo $this->backend->tableButtonAction('edit');?>';
 			view+= '<?php echo $this->backend->tableButtonAction('remove');?>';
 			view+= '<input type="hidden" value="'+id+'">';
 			return view;
-				 
+
 		},
 		tableUActions:function(id){
 			view = '<?php echo $this->backend->tableButtonAction('edit');?>';
@@ -110,7 +116,13 @@ var tableView = {
 			$('#datatable button').click(function(){
 				$id = $(this).parent().find('input[type=hidden]').val();
 				if($(this).hasClass('item-edit')){
-					window.location.href =  tableView.urlAction('update',$id);
+				    if($(this).hasClass('motor-edit')){
+					   window.location.href =  tableView.urlActionMotorUpdate('update',$id);
+					} else {
+					    window.location.href =  tableView.urlAction('update',$id);
+					}
+
+
 				} else if($(this).hasClass('item-changepass')){
 					window.location.href =  tableView.urlAction('changepass',$id);
 				}else if($(this).hasClass('item-remove')){
@@ -143,7 +155,7 @@ var tableView = {
 				type: "POST",data: data,  dataType: "json",
 				success: function(data){
 					if(data.hasOwnProperty('action') && data.action==true){
-						
+
 						//alert( e.attr('class') );
 						if(value==1){
 							e.removeClass('item-unpublish').addClass('item-publish');
@@ -155,7 +167,7 @@ var tableView = {
 						} else if(value == -1){
 								tr.remove(); return;
 						}
-						
+
 					}
 				},
 			});

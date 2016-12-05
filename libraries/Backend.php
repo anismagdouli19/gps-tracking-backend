@@ -115,14 +115,19 @@ class Backend extends form {
 			default:
 				$title = $this->CI->lang->line('Edit'); break;
 		}
-		return '<button class="icon_only item-'.$action.'" title="'.$title.'" alt="'.$title.'" action="item-'.$action.'"  ></button>';;
+		$class_add = NULL;
+		if( $this->CI->uri->segment(1)=='user' AND $this->CI->uri->segment(3)=='view' AND $action=='edit' ){
+		    $class_add .= ' motor-edit';
+		    return NULL;
+		}
+		return '<button class="icon_only item-'.$action.' '.$class_add.'" title="'.$title.'" alt="'.$title.'" action="item-'.$action.'"  ></button>';;
 	}
 
 	public function form($opt=array('item-name'=>'')){
 		if($this->CI->input->post())  {
 			self::formSubmit($opt);
 		} else {
-			if(isset($opt['id']) && $opt['id']>0 ){
+			if(isset($opt['id']) ){
 				$title='Update '.$opt['item-name'];
 				if(isset($this->CI->backend->formField->language) && $this->CI->backend->formField->language->value ){
 					$item=$this->CI->$opt['model']->$opt['model-get']($opt['id'],$this->CI->backend->formField->language->value);
@@ -135,13 +140,9 @@ class Backend extends form {
 					if(isset($item->$key)&& $item->$key)
 						$this->CI->backend->formField->$key->value = $item->$key;
 				}
-//
 			} else {
 				$title=$opt['item-name'].' Add New '.$opt['item-name'];
 			}
-// 			bug($item->name);
-// 			bug($item);
-// 			$this->CI->backend->formField->name->value = 'aaa';
 // 			bug($this->CI->backend->formField); exit;
 			if(count($this->CI->msg) > 0 && $this->CI->msg[0]['type'] == 'confirm-replace' ) {
 				$this->CI->backend->formField->confirm = (object)array('type'=>'hidden','value'=>1);

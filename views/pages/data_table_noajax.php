@@ -8,7 +8,7 @@
 				<?php if(isset($actions)) echo '<div class="tabs" >'.$this->backend->showButtons($actions);?>
 				</div>
 			</div>
-				<?php 
+				<?php
 $uri = uri_string();
 $query='';
 if($this->input->get()){
@@ -28,17 +28,17 @@ if(isset($controller)){
 			$addGet .= "&$key=$val";
 	}
 	//$url = ($addGet!='')?'?'.substr($addGet,1):'';
-	
+
 	echo UI::button($this->lang->line("$controller add new"),array('id'=>"item-add", 'href'=>$newItem));
 	if(isset($otherButton)) echo $otherButton;
 }
-	
+
 $column=$aoColumns=$aoColumnDefs='';
 $tableContent='';
 if($table){
 	$i=0;
 	foreach($table AS $key=>$info){
-		$column.='<th></th>'; 
+		$column.='<th></th>';
 		$softTable = ($info[1]==TRUE)?",'bSortable': true":",'bSortable': false";
 		$sClass = (isset($info[3])&& $info[3]!='')?",'sClass': '$info[3]' ":'';
 		$aoColumns .="{'sTitle': '$info[0]' $softTable , 'sWidth': '$info[2]px' $sClass},";
@@ -53,13 +53,13 @@ if($table){
 		}
 		$i++;
 	}
-	
+
 	if($items){
 		foreach($items AS $k=>$rowContent){
 			$tableContent .= '<tr>'
 							.'<td>'.$rowContent[0].'</td>';
 			for($ii=1;$ii <= count($table)-2;$ii++){
-				
+
 				$tableContent .='<td>'.$rowContent[$ii].'</td>';
 			}
 			$tableContent.='<td class="center">'
@@ -83,14 +83,14 @@ if($table){
 	</div>
 </div>
 
-		
-		
+
+
 <script type="text/javascript" charset="utf-8">
 var tableconfig = {
         "bProcessing": true,"bServerSide": false, "sPaginationType": "full_numbers", "aaSorting": [],
         //"bFilter": false,
-        "aoColumns": [<?php echo $aoColumns;?>], "aoColumnDefs":	[<?php echo $aoColumnDefs;?>], 
-    	
+        "aoColumns": [<?php echo $aoColumns;?>], "aoColumnDefs":	[<?php echo $aoColumnDefs;?>],
+
  };
 //jQuery('#datatable').dataTable().fnDestroy();
 $(document).ready(function() {
@@ -99,19 +99,24 @@ $(document).ready(function() {
 });
 var tableView = {
 		urlAction:function(action,id){
+
 			var uri="<?php echo $uri;?>";
-			if(id) 
+			if(id)
 				url = vt.site+ uri + ((action)?"/"+action+"/"+id:'') + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
-			else 
+			else
 				url = vt.site+ uri + ((action)?"/"+action+"/":'') + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
 			return url;
+		},
+		urlActionMotorUpdate: function(action,id){
+			var uri = 'vehicle/motor/update/';
+		    url = vt.site+ uri + "/"+id + "<?php echo (($query!='')?'?'.substr($query,1):'')?>";
 		},
 		tableActions:function(id){
 			view = '<?php echo $this->backend->tableButtonAction('edit');?>';
 			view+= '<?php echo $this->backend->tableButtonAction('remove');?>';
 			view+= '<input type="hidden" value="'+id+'">';
 			return view;
-				 
+
 		},
 		tableUActions:function(id){
 			view = '<?php echo $this->backend->tableButtonAction('edit');?>';
@@ -124,7 +129,7 @@ var tableView = {
 			$('#datatable button').click(function(){
 				$id = $(this).parent().find('input[type=hidden]').val();
 				if($(this).hasClass('item-edit')){
-					window.location.href =  tableView.urlAction('update',$id);
+					window.location.href =  tableView.urlActionMotorUpdate('update',$id);
 				} else if($(this).hasClass('item-changepass')){
 					window.location.href =  tableView.urlAction('changepass',$id);
 				}else if($(this).hasClass('item-remove')){
@@ -162,7 +167,7 @@ var tableView = {
 						} else if(value == -1){
 								tr.remove(); return;
 						}
-						
+
 					}
 				},
 			});

@@ -18,7 +18,6 @@ class Vehicle extends CI_Controller {
 		$userData = $this->User_Model->getUser($this->input->get('user'));
 		if($action){
 			$this->backend->formField = self::motorFields();
-// 			bug($this->backend->formField);exit;
 			$opt = array(
 				'item-name'=>'Motor',
 				'model'=>'Motor_Model',
@@ -43,7 +42,7 @@ class Vehicle extends CI_Controller {
 					$this->Motor_Model->updateTracking(array( 'taget'=>$this->input->post('id'),'owner'=>$this->input->get('user'),'type'=>'track'));
 					redirect('vehicle/motor','',302,'user='.$this->input->get('user'));
 				} else {
-					$this->page_title[] = lang('ThÃªm Xe Theo DÃµi');
+					$this->page_title[] = lang('Theo doi xe may');
 					if($this->input->get('user') && $this->input->get('user') >0 ){
 						$this->backend->formField->owner->value = $this->input->get('user');
 					}
