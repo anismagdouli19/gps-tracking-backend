@@ -117,7 +117,7 @@ class Vehicle extends CI_Controller {
 			'simcard'=>array('title'=>lang('Vehicle_simcard')),
 			'expiry'=>array('title'=>lang('Expiry'), 'type'=>'date','request'=>true, 'value'=>date('Y-m-d',strtotime("+1 year")) ),
 			'confirm'=>array('type'=>'hidden','value'=>0),
-			'fuel'=>array( 'title'=>lang('LiÌ�t XÄƒng / 100 km') ),
+			'fuel'=>array( 'title'=>lang('Lit xang / 100 km') ),
 			'fuel_price'=>'',
 			'type'=>array('type'=>'hidden','value'=>1),
 		);

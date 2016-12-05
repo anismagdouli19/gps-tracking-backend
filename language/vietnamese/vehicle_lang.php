@@ -7,5 +7,6 @@ $lang+=array(
 	'Venhicle Report All_invalid'=>'Dữ Liệu Không Hợp Lệ',
     'Theo doi xe may'=>'Theo dõi xe máy',
     'Car Add New'=>'Thêm mới ô tô',
-    'Add new Car to tracking'=>'Thêm mới ô tô theo dõi'
+    'Add new Car to tracking'=>'Thêm mới ô tô theo dõi',
+    'Lit xang / 100 km'=>'Lít xăng/100km'
 );
